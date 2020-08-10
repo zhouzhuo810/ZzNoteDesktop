@@ -1,0 +1,85 @@
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+}
+apply plugin: 'javafx-gradle-plugin'
+
+group 'me.zhouzhuo810.zznote'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+def VERSION = version
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'me.zhouzhuo810.zznote.Main'
+        attributes 'Version': VERSION
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+jfx {
+    appName = "ZzNote"
+    nativeReleaseVersion = VERSION
+    mainClass = 'me.zhouzhuo810.zznote.Main'
+    vendor = 'zhouzhuo810.me'
+    libFolderName = "libs"
+    addPackagerJar = true
+    copyAdditionalAppResourcesToJar = true
+    skipCopyingDependencies = false
+    bundler = "ALL"
+    bundleArguments = [
+            "applicationCategory": "Utility;"
+    ]
+    usePatchedJFXAntLib = false
+}
+
+dependencies {
+    compile "com.squareup.okhttp3:okhttp:4.8.1"
+    compile 'com.alibaba:fastjson:1.2.73'
+    compile 'org.greenrobot:eventbus:3.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.9.0'
+//    compile 'io.netty:netty-all:4.1.48.Final'
+    compile 'com.google.protobuf:protobuf-java:3.11.4'
+    compile 'io.reactivex.rxjava2:rxjava:2.2.19'
+    compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'io.reactivex:rxjavafx:2.0.2'
+    //Retrofit2+RxJava2
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    //Retrofit2+Gson
+    compile 'com.squareup.retrofit2:converter-gson:2.5.0'
+}
+
+task generateJar(type: Copy, dependsOn: build) {
+    from('build/libs') {
+        include "PureWriter-${VERSION}.jar"
+    }
+    into('jar')
+}
+build.finalizedBy generateJar
+
+task deleteJar(type: Delete, dependsOn: clean) {
+    delete 'jar'
+}
+clean.finalizedBy deleteJar
