@@ -39,11 +39,14 @@ jar {
 }
 
 jfx {
+    verbose = true
     appName = "ZzNote"
     nativeReleaseVersion = VERSION
     mainClass = 'me.zhouzhuo810.zznote.Main'
     vendor = 'zhouzhuo810.me'
     libFolderName = "libs"
+    jfxAppOutputDir = "build/jfx/app"
+    jfxMainAppJarName = "ZzNote-${VERSION}.jar"
     addPackagerJar = true
     copyAdditionalAppResourcesToJar = true
     skipCopyingDependencies = false
@@ -73,7 +76,7 @@ dependencies {
 
 task generateJar(type: Copy, dependsOn: build) {
     from('build/libs') {
-        include "PureWriter-${VERSION}.jar"
+        include "ZzNote-${VERSION}.jar"
     }
     into('jar')
 }
