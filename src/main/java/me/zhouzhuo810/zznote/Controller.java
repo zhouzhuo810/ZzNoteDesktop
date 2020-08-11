@@ -41,6 +41,8 @@ public class Controller implements Initializable {
 
     private boolean hasRetryOnce = false;
     private Alert alert;
+    private Disposable subscribe2;
+    private Disposable subscribe3;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -151,7 +153,7 @@ public class Controller implements Initializable {
         if (Api.SERVER_IP0 == null) {
             return;
         }
-        Disposable subscribe = Api.getApi0()
+        subscribe2 = Api.getApi0()
                 .getOpenedNote()
                 .compose(RxHelper.io_main())
                 .subscribe(new Consumer<GetNotesEntity>() {
@@ -198,7 +200,7 @@ public class Controller implements Initializable {
         if (Api.SERVER_IP0 == null) {
             return;
         }
-        Disposable subscribe = Api.getApi0()
+        subscribe3 = Api.getApi0()
                 .heartBeat()
                 .compose(RxHelper.io_main())
                 .subscribe(new Consumer<HeartBeatEntity>() {
@@ -254,6 +256,8 @@ public class Controller implements Initializable {
     public void onExitEvent(ExitEvent event) {
         cancelDisposable(subscribe1);
         cancelDisposable(subscribe);
+        cancelDisposable(subscribe2);
+        cancelDisposable(subscribe3);
         EventBus.getDefault().unregister(this);
     }
 
