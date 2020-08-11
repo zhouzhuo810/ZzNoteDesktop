@@ -96,7 +96,7 @@ public class Controller implements Initializable {
     }
 
     private void tempToConnect(String newValue) {
-        String ip = newValue.trim().replace("。", ".");
+        String ip = newValue.trim().replace("\u3002", ".");
         if (ip.matches("((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})(\\.((2(5[0-5]|[0-4]\\d))|[0-1]?\\d{1,2})){3}")) {
             Api.updateApi(ip);
             getContent();

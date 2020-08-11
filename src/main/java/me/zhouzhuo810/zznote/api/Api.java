@@ -36,8 +36,8 @@ public class Api {
                     CookieHandler.setDefault(getCookieManager());
                     Retrofit retrofit = new Retrofit.Builder()
                             .client(client)
-                            .addConverterFactory(GsonConverterFactory.create())//添加 json 转换器
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加 RxJava 适配器
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .baseUrl(SERVER_IP0)
                             .build();
                     api0 = retrofit.create(Api0.class);
