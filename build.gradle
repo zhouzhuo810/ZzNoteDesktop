@@ -42,11 +42,12 @@ jfx {
     verbose = true
     appName = "ZzNote"
     nativeReleaseVersion = VERSION
+    usePatchedJFXAntLib = true
     mainClass = 'me.zhouzhuo810.zznote.Main'
     vendor = 'zhouzhuo810.me'
     libFolderName = "libs"
     jfxAppOutputDir = "build/jfx/app"
-    jfxMainAppJarName = "ZzNote-${VERSION}.jar"
+    jfxMainAppJarName = "ZzNote.jar"
     addPackagerJar = true
     copyAdditionalAppResourcesToJar = true
     skipCopyingDependencies = false
@@ -62,21 +63,18 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.73'
     compile 'org.greenrobot:eventbus:3.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.9.0'
-//    compile 'io.netty:netty-all:4.1.48.Final'
     compile 'com.google.protobuf:protobuf-java:3.11.4'
     compile 'io.reactivex.rxjava2:rxjava:2.2.19'
     compile 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
     compile 'com.google.code.gson:gson:2.8.5'
     compile 'io.reactivex:rxjavafx:2.0.2'
-    //Retrofit2+RxJava2
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    //Retrofit2+Gson
     compile 'com.squareup.retrofit2:converter-gson:2.5.0'
 }
 
 task generateJar(type: Copy, dependsOn: build) {
     from('build/libs') {
-        include "ZzNote-${VERSION}.jar"
+        include "ZzNote.jar"
     }
     into('jar')
 }
