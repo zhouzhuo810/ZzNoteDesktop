@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("editor.fxml")));
-        primaryStage.setTitle("小周便签");
+        primaryStage.setTitle("\u5c0f\u5468\u4fbf\u7b7e");
         primaryStage.setScene(new Scene(root, 480, 720));
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

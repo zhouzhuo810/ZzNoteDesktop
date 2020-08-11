@@ -40,6 +40,7 @@ public class Controller implements Initializable {
     private Disposable subscribe1;
 
     private boolean hasRetryOnce = false;
+    private Alert alert;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -169,13 +170,16 @@ public class Controller implements Initializable {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        showMsg("错误", throwable.getMessage());
+                        showNoOpen(true, "\u8bf7\u91cd\u65b0\u957f\u6309\u626b\u7801\u6309\u94ae");
                     }
                 });
     }
 
     private void showMsg(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (alert != null && alert.isShowing()) {
+            alert.close();
+        }
+        alert = new Alert(Alert.AlertType.INFORMATION);
         alert.titleProperty().set(title);
         alert.headerTextProperty().set(msg);
         alert.showAndWait();
@@ -208,7 +212,7 @@ public class Controller implements Initializable {
                         if (noteChange) {
                             getContent();
                         } else if (noteId == 0) {
-                            showNoOpen(true, "请打开一篇便签");
+                            showNoOpen(true, "\u8bf7\u6253\u5f00\u4e00\u7bc7\u4fbf\u7b7e");
                         }
                     }
                 }, new Consumer<Throwable>() {
